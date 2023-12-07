@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, incrementAsync, selectCount } from '../authSlice';
+import { selectLoggedInUser, fetchCreateUserAsync } from '../authSlice';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 export default function Signup() {
-    const count = useSelector(selectCount);
     const dispatch = useDispatch();
+    const user = useSelector(selectLoggedInUser);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
+    console.log(user);
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,7 +30,17 @@ export default function Signup() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form
+                        noValidate
+                        className="space-y-6"
+                        onSubmit={handleSubmit((data) => {
+                            dispatch(
+                                fetchCreateUserAsync({
+                                    email: data.email,
+                                    password: data.password,
+                                })
+                            );
+                        })}>
                         <div>
                             <label
                                 htmlFor="email"
@@ -32,12 +50,24 @@ export default function Signup() {
                             <div className="mt-2">
                                 <input
                                     id="email"
-                                    name="email"
+                                    {...register('email', {
+                                        required: 'email is required',
+                                        pattern: {
+                                            value: /^\S+@\S+\.\S+$/,
+                                            message:
+                                                'Email address is not valid',
+                                        },
+                                    })}
                                     type="email"
                                     autoComplete="email"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
+                                {errors.email && (
+                                    <span className="text-red-500">
+                                        {errors.email.message}
+                                    </span>
+                                )}
                             </div>
                         </div>
 
@@ -59,12 +89,22 @@ export default function Signup() {
                             <div className="mt-2">
                                 <input
                                     id="password"
-                                    name="password"
+                                    {...register('password', {
+                                        required: 'password is required',
+                                        pattern: {
+                                            value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                                            message:
+                                                'At least 8 character must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special characters',
+                                        },
+                                    })}
                                     type="password"
-                                    autoComplete="current-password"
-                                    required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
+                                {errors.password && (
+                                    <span className="text-red-500">
+                                        {errors.password.message}
+                                    </span>
+                                )}
                             </div>
                         </div>
 
@@ -78,12 +118,23 @@ export default function Signup() {
                             </div>
                             <div className="mt-2">
                                 <input
-                                    id="confirm-password"
-                                    name="confirm-password"
+                                    id="confirmPassword"
+                                    {...register('confirmPassword', {
+                                        required:
+                                            'confirm password is required',
+                                        validate: (value, formValues) =>
+                                            value === formValues.password ||
+                                            'password not matched',
+                                    })}
                                     type="password"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
+                                {errors.confirmPassword && (
+                                    <span className="text-red-500">
+                                        {errors.confirmPassword.message}
+                                    </span>
+                                )}
                             </div>
                         </div>
 
