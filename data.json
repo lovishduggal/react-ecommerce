@@ -2013,34 +2013,45 @@
     {
       "email": "krishna11@gmail.com",
       "password": "1Dsggsji",
+      "addresses": [
+        {
+          "name": "Lovish Duggal",
+          "email": "lovishduggal11@gmail.com",
+          "phone": "6280472469",
+          "street": "123-street",
+          "city": "Amritsar",
+          "state": "punjab",
+          "pinCode": "143115"
+        },
+        {
+          "name": "Lovish Duggal",
+          "email": "lovishduggal11@gmail.com",
+          "phone": "6280472469",
+          "street": "123-street",
+          "city": "Amritsar",
+          "state": "punjab",
+          "pinCode": "143115"
+        },
+        {
+          "name": "Lovish Duggal",
+          "email": "lovishduggal11@gmail.com",
+          "phone": "06280472469",
+          "street": "123-street",
+          "city": "Amritsar",
+          "state": "punjab",
+          "pinCode": "143115"
+        }
+      ],
       "id": 1
     },
     {
       "email": "lovish121@gmail.com",
       "password": "1Dsggsji",
+      "addresses": [],
       "id": 2
     }
   ],
   "cart": [
-    {
-      "id": 5,
-      "title": "Huawei P30",
-      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-      "price": 499,
-      "discountPercentage": 10.58,
-      "rating": 4.09,
-      "stock": 32,
-      "brand": "Huawei",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/5/1.jpg",
-        "https://i.dummyjson.com/data/products/5/2.jpg",
-        "https://i.dummyjson.com/data/products/5/3.jpg"
-      ],
-      "quantity": 3,
-      "user": 1
-    },
     {
       "id": 6,
       "title": "MacBook Pro",
@@ -2060,6 +2071,27 @@
       ],
       "quantity": 1,
       "user": 2
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "quantity": 2,
+      "user": 1,
+      "id": 7
     }
-  ]
+  ],
+  "orders": []
 }

@@ -40,6 +40,7 @@ export default function Signup() {
                                     fetchCreateUserAsync({
                                         email: data.email,
                                         password: data.password,
+                                        addresses: [],
                                     })
                                 );
                             })}>
