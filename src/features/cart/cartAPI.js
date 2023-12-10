@@ -20,7 +20,6 @@ export function fetchItemsByUserId(userId) {
             `http://localhost:8080/cart?user=${userId}`
         );
         const data = await response.json();
-        console.log(data);
         resolve({ data });
     });
 }
@@ -54,5 +53,17 @@ export function deleteItemFromCart(itemId) {
         const data = await response.json();
         //TODO: Onserver it will only return some info of user (not password)
         resolve({ data: { id: itemId } });
+    });
+}
+
+export async function resetCart(userId) {
+    return new Promise(async (resolve) => {
+        const response = await fetchItemsByUserId(userId);
+        const items = response.data;
+
+        for (let item of items) {
+            await deleteItemFromCart(item.id);
+        }
+        resolve({ status: 'success' });
     });
 }

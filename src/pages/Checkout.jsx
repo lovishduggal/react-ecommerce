@@ -11,6 +11,10 @@ import {
     selectLoggedInUser,
     updateUserAsync,
 } from '../features/auth/authSlice';
+import {
+    createOrderAsync,
+    selectCurrentOrder,
+} from '../features/order/orderSlice';
 
 function Checkout() {
     const dispatch = useDispatch();
@@ -20,6 +24,7 @@ function Checkout() {
     const [open, setOpen] = useState(true);
     const items = useSelector(selectItems);
     const user = useSelector(selectLoggedInUser);
+    const currentOrder = useSelector(selectCurrentOrder);
     const totalAmount = items.reduce(
         (amount, item) => item.price * item.quantity + amount,
         0
@@ -41,11 +46,27 @@ function Checkout() {
     const handlePayment = (e) => {
         setPaymentMethod(e.target.value);
     };
+
     const handleOrder = (e) => {
-        setPaymentMethod(e.target.value);
+        const order = {
+            items,
+            totalAmount,
+            totalItems,
+            user,
+            paymentMethod,
+            selectedAddress,
+            status: 'pending', //? other status can be delivered, received
+        };
+        dispatch(createOrderAsync(order));
+        //TODO: redirect to order-success page
+        //TODO: clear cart after order
+        //TODO: on server change the stock number of items.
     };
     return (
         <>
+            {currentOrder && (
+                <Navigate to={`/order-success/${currentOrder.id}`}></Navigate>
+            )}
             {items.length > 0 ? (
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
@@ -455,7 +476,7 @@ function Checkout() {
                                     <div className="mt-6">
                                         <div
                                             onClick={handleOrder}
-                                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 cursor-pointer">
                                             Order Now
                                         </div>
                                     </div>
