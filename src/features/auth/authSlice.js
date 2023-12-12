@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const fetchCreateUserAsync = createAsyncThunk(
-    'counter/createUser',
+    'auth/createUser',
     async (userData) => {
         const response = await createUser(userData);
         return response.data;
@@ -16,20 +16,20 @@ export const fetchCreateUserAsync = createAsyncThunk(
 );
 
 export const fetchCheckUserAsync = createAsyncThunk(
-    'counter/checkUser',
+    'auth/checkUser',
     async (loginInfo) => {
         const response = await checkUser(loginInfo);
         return response.data;
     }
 );
 
-export const signOutAsync = createAsyncThunk('counter/signOut', async () => {
+export const signOutAsync = createAsyncThunk('auth/signOut', async () => {
     const response = await signOut();
     return response.data;
 });
 
 export const authSlice = createSlice({
-    name: 'user',
+    name: 'auth',
     initialState,
     reducers: {
         increment: (state) => {

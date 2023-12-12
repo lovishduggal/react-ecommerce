@@ -17,6 +17,7 @@ import UserOrdersPage from './pages/UserOrdersPage';
 import UserProfilePage from './pages/UserProfilePage';
 import { fetchLoggdInUserAsync } from './features/user/userSlice';
 import Logout from './features/auth/components/Logout';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
 const router = createBrowserRouter([
     {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
         //* We will add page later right now
     },
     {
+        path: '/forgot-password',
+        element: <ForgotPasswordPage></ForgotPasswordPage>,
+    },
+    {
         path: '*',
         element: <PageNotFound></PageNotFound>,
     },
@@ -93,7 +98,7 @@ function App() {
             dispatch(fetchItemsByUserIdAsync(user?.id));
             dispatch(fetchLoggdInUserAsync(user?.id));
         }
-    }, [dispatch, user?.id, user]);
+    }, [dispatch, user]);
 
     return (
         <div className="App">
