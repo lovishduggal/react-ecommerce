@@ -57,6 +57,21 @@ export function fetchBrands() {
     });
 }
 
+export function createProduct(product) {
+    return new Promise(async (resolve) => {
+        //Todo: We will not hard-code server URL here.
+        const response = await fetch(`http://localhost:8080/products`, {
+            method: 'POST',
+            body: JSON.stringify(product),
+            headers: {
+                'content-type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        resolve({ data });
+    });
+}
+
 export function fetchProductById(id) {
     return new Promise(async (resolve) => {
         //Todo: We will not hard-code server URL here.

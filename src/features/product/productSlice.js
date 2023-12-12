@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+    createProduct,
     fetchAllProducts,
     fetchAllProductsByFilters,
     fetchBrands,
@@ -59,6 +60,13 @@ export const fetchProductByIdAsync = createAsyncThunk(
         return response.data;
     }
 );
+export const createProductIdAsync = createAsyncThunk(
+    'product/createProduct',
+    async (product) => {
+        const response = await createProduct(product);
+        return response.data;
+    }
+);
 
 export const productSlice = createSlice({
     name: 'product',
@@ -108,6 +116,13 @@ export const productSlice = createSlice({
             .addCase(fetchProductByIdAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.selectedProduct = action?.payload;
+            })
+            .addCase(createProductIdAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(createProductIdAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.products.push(action?.payload);
             });
     },
 });
