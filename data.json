@@ -2181,7 +2181,457 @@
         "state": "punjab",
         "pinCode": "143115"
       },
-      "status": "pending",
+      "status": "cancelled",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Universe 9",
+          "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+          "price": 1249,
+          "discountPercentage": 15.46,
+          "rating": 4.09,
+          "stock": 36,
+          "brand": "Samsung",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/3/1.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "totalAmount": 2348,
+      "totalItems": 2,
+      "user": {
+        "email": "krishna11@gmail.com",
+        "password": "1Dsggsji",
+        "addresses": [
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "06280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Lovish Duggal",
+        "email": "lovishduggal11@gmail.com",
+        "phone": "06280472469",
+        "street": "123-street",
+        "city": "Amritsar",
+        "state": "punjab",
+        "pinCode": "143115"
+      },
+      "status": "cancelled",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Universe 9",
+          "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+          "price": 1249,
+          "discountPercentage": 15.46,
+          "rating": 4.09,
+          "stock": 36,
+          "brand": "Samsung",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/3/1.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "totalAmount": 2348,
+      "totalItems": 2,
+      "user": {
+        "email": "krishna11@gmail.com",
+        "password": "1Dsggsji",
+        "addresses": [
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "06280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Lovish Duggal",
+        "email": "lovishduggal11@gmail.com",
+        "phone": "06280472469",
+        "street": "123-street",
+        "city": "Amritsar",
+        "state": "punjab",
+        "pinCode": "143115"
+      },
+      "status": "cancelled",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Universe 9",
+          "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+          "price": 1249,
+          "discountPercentage": 15.46,
+          "rating": 4.09,
+          "stock": 36,
+          "brand": "Samsung",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/3/1.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "totalAmount": 2348,
+      "totalItems": 2,
+      "user": {
+        "email": "krishna11@gmail.com",
+        "password": "1Dsggsji",
+        "addresses": [
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "06280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Lovish Duggal",
+        "email": "lovishduggal11@gmail.com",
+        "phone": "06280472469",
+        "street": "123-street",
+        "city": "Amritsar",
+        "state": "punjab",
+        "pinCode": "143115"
+      },
+      "status": "cancelled",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Universe 9",
+          "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+          "price": 1249,
+          "discountPercentage": 15.46,
+          "rating": 4.09,
+          "stock": 36,
+          "brand": "Samsung",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/3/1.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "totalAmount": 2348,
+      "totalItems": 2,
+      "user": {
+        "email": "krishna11@gmail.com",
+        "password": "1Dsggsji",
+        "addresses": [
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "06280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Lovish Duggal",
+        "email": "lovishduggal11@gmail.com",
+        "phone": "06280472469",
+        "street": "123-street",
+        "city": "Amritsar",
+        "state": "punjab",
+        "pinCode": "143115"
+      },
+      "status": "cancelled",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Universe 9",
+          "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+          "price": 1249,
+          "discountPercentage": 15.46,
+          "rating": 4.09,
+          "stock": 36,
+          "brand": "Samsung",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/3/1.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "totalAmount": 2348,
+      "totalItems": 2,
+      "user": {
+        "email": "krishna11@gmail.com",
+        "password": "1Dsggsji",
+        "addresses": [
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "6280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          },
+          {
+            "name": "Lovish Duggal",
+            "email": "lovishduggal11@gmail.com",
+            "phone": "06280472469",
+            "street": "123-street",
+            "city": "Amritsar",
+            "state": "punjab",
+            "pinCode": "143115"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Lovish Duggal",
+        "email": "lovishduggal11@gmail.com",
+        "phone": "06280472469",
+        "street": "123-street",
+        "city": "Amritsar",
+        "state": "punjab",
+        "pinCode": "143115"
+      },
+      "status": "cancelled",
       "id": 1
     },
     {
