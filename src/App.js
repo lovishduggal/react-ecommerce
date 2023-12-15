@@ -23,6 +23,7 @@ import AdminHome from './pages/AdminHome';
 import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
+import toast, { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
     {
@@ -148,6 +149,7 @@ function App() {
     return (
         <div className="App">
             <RouterProvider router={router} />
+            <Toaster />
         </div>
     );
 }

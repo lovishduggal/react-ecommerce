@@ -8,6 +8,7 @@ import {
     selectAllProducts,
     selectBrands,
     selectCategories,
+    selectStatus,
     selectTotalItems,
 } from '../productSlice';
 import {
@@ -26,8 +27,9 @@ import {
     Squares2X2Icon,
 } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
-import { ITEMS_PER_PAGE } from '../../../app/constants';
+import { ITEMS_PER_PAGE, discountPrice } from '../../../app/constants';
 import Pagination from '../../common/Pagination';
+import { Grid } from 'react-loader-spinner';
 
 const sortOptions = [
     { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -49,6 +51,7 @@ export default function ProductList() {
     const totalItems = useSelector(selectTotalItems);
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
+    const status = useSelector(selectStatus);
     const dispatch = useDispatch();
     const [filter, setFilter] = useState({});
     const [sort, setSort] = useState({});
@@ -231,8 +234,24 @@ export default function ProductList() {
                                         filters={filters}></DesktopFilter>
 
                                     {/* Product grid */}
-                                    <ProductGrid
-                                        products={products}></ProductGrid>
+                                    {status === 'loading' ? (
+                                        <div className="flex items-center justify-center h-screen w-[80vw] -translate-x-20">
+                                            {' '}
+                                            <Grid
+                                                height="80"
+                                                width="80"
+                                                color="#1F2937"
+                                                ariaLabel="grid-loading"
+                                                radius="12.5"
+                                                wrapperStyle={{}}
+                                                wrapperClass=""
+                                                visible={true}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <ProductGrid
+                                            products={products}></ProductGrid>
+                                    )}
                                 </div>
                             </section>
                             <Pagination
@@ -496,13 +515,7 @@ function ProductGrid({ products }) {
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-gray-900">
-                                                $
-                                                {Math.round(
-                                                    product.price *
-                                                        (1 -
-                                                            product.discountPercentage /
-                                                                100)
-                                                )}
+                                                ${discountPrice(product)}
                                             </p>
                                             <p className="text-sm font-medium text-gray-400 line-through">
                                                 ${product.price}

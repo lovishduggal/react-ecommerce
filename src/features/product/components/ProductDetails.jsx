@@ -4,8 +4,10 @@ import { RadioGroup } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductByIdAsync, selectProductById } from '../productSlice';
 import { useParams } from 'react-router-dom';
-import { addToCartAsync } from '../../cart/cartSlice';
+import { addToCartAsync, selectItems } from '../../cart/cartSlice';
 import { selectLoggedInUser } from '../../auth/authSlice';
+import { discountPrice } from '../../../app/constants';
+import toast from 'react-hot-toast';
 
 // TODO: In server data we will add colors, sizs, highlights etc.
 const colors = [
@@ -40,15 +42,27 @@ export default function ProductDetails() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const user = useSelector(selectLoggedInUser);
+    const items = useSelector(selectItems);
     const product = useSelector(selectProductById);
     const [selectedColor, setSelectedColor] = useState(colors[0]);
     const [selectedSize, setSelectedSize] = useState(sizes[2]);
 
     function handleCart(e) {
         e.preventDefault();
-        const newItem = { ...product, quantity: 1, user: user.id };
-        delete newItem['id'];
-        dispatch(addToCartAsync(newItem));
+        if (items.findIndex((item) => item.productID === product.id) < 0) {
+            const newItem = {
+                ...product,
+                productID: product.id,
+                quantity: 1,
+                user: user.id,
+            };
+            delete newItem['id'];
+            dispatch(addToCartAsync(newItem));
+            //! TODO: It will based on server response of backend
+            toast.success('Added to cart successfully');
+        } else {
+            toast.error('Already added to cart');
+        }
     }
 
     useEffect(() => {
@@ -140,7 +154,10 @@ export default function ProductDetails() {
                         {/* Options */}
                         <div className="mt-4 lg:row-span-3 lg:mt-0">
                             <h2 className="sr-only">Product information</h2>
-                            <p className="text-3xl tracking-tight text-gray-900">
+                            <p className="text-3xl font-medium text-gray-900">
+                                ${discountPrice(product)}
+                            </p>
+                            <p className="text-sm tracking-tight text-gray-900 line-through">
                                 ${product.price}
                             </p>
 

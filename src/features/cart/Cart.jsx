@@ -3,15 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     deleteItemFromCartAsync,
     selectItems,
+    selectStatus,
     updateCartAsync,
 } from './cartSlice';
 
 import { Link, Navigate } from 'react-router-dom';
+import { Grid } from 'react-loader-spinner';
 
 export default function Cart() {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(true);
     const items = useSelector(selectItems);
+    const status = useSelector(selectStatus);
     const totalAmount = items.reduce(
         (amount, item) => item.price * item.quantity + amount,
         0
@@ -27,7 +30,21 @@ export default function Cart() {
     };
     return (
         <>
-            {items.length > 0 ? (
+            {status === 'loading' ? (
+                <div className="flex items-center justify-center h-screen w-[100vw]">
+                    {' '}
+                    <Grid
+                        height="80"
+                        width="80"
+                        color="#1F2937"
+                        ariaLabel="grid-loading"
+                        radius="12.5"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            ) : items.length > 0 ? (
                 <div className="mx-auto mt-12 bg-white w-[95%] max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900 my-5">

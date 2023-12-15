@@ -8,6 +8,7 @@ function AdminHome() {
                 {' '}
                 <AdminProductList></AdminProductList>
             </NavBar>
+
         </div>
     );
 }
