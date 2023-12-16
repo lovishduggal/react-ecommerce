@@ -142,6 +142,7 @@ export const productSlice = createSlice({
                     (product) => product.id === action.payload.id
                 );
                 state.products[index] = action.payload;
+                state.selectedProduct = action.payload;
             });
     },
 });

@@ -9,15 +9,18 @@ import {
     updateProductAsync,
 } from '../../product/productSlice';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Modal from '../../common/Modal';
 
 export default function ProductForm() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
     const { register, handleSubmit, setValue, reset } = useForm();
     const selectedProduct = useSelector(selectProductById);
+    const [openModal, setOpenModal] = useState(null);
     const params = useParams();
 
     const handleDelete = (e) => {
@@ -72,6 +75,7 @@ export default function ProductForm() {
                     product.rating = selectedProduct.rating || 0;
                     dispatch(updateProductAsync(product));
                 } else dispatch(createProductIdAsync(product));
+                console.log('ii');
                 reset();
             })}>
             <div className="space-y-12 bg-white p-12">
@@ -410,14 +414,18 @@ export default function ProductForm() {
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <button
                     type="button"
+                    onClick={() => navigate(-1)}
                     className="text-sm font-semibold leading-6 text-gray-900">
                     Cancel
                 </button>
 
-                {selectedProduct && (
+                {selectedProduct && !selectedProduct.deleted && (
                     <button
-                        type="submit"
-                        onClick={handleDelete}
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setOpenModal(true);
+                        }}
                         className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
                         Delete
                     </button>
@@ -429,6 +437,14 @@ export default function ProductForm() {
                     Save
                 </button>
             </div>
+            <Modal
+                title={`Delete ${selectedProduct.title}`}
+                message={'Are you sure you want to delete this Product?'}
+                dangerOption={'Delete'}
+                cancelOption={'Cancel'}
+                dangerAction={handleDelete}
+                showModal={openModal}
+                setOpenModal={setOpenModal}></Modal>
         </form>
     );
 }

@@ -9,10 +9,11 @@ import {
 
 import { Link, Navigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
+import Modal from '../common/Modal';
 
 export default function Cart() {
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(true);
+    const [openModal, setOpenModal] = useState(null);
     const items = useSelector(selectItems);
     const status = useSelector(selectStatus);
     const totalAmount = items.reduce(
@@ -109,16 +110,35 @@ export default function Cart() {
                                                 </p>
 
                                                 <div className="flex">
-                                                    <button
-                                                        onClick={(e) =>
+                                                    <Modal
+                                                        title={`Delete ${item.title}`}
+                                                        message={
+                                                            'Are you sure you want to delete this cart item?'
+                                                        }
+                                                        dangerOption={'Delete'}
+                                                        cancelOption={'Cancel'}
+                                                        dangerAction={(e) =>
                                                             handleRemove(
                                                                 e,
                                                                 item.id
                                                             )
                                                         }
+                                                        showModal={
+                                                            openModal ===
+                                                            item.id
+                                                        }
+                                                        setOpenModal={
+                                                            setOpenModal
+                                                        }></Modal>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            setOpenModal(
+                                                                item.id
+                                                            );
+                                                        }}
                                                         type="button"
                                                         className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                        Remove
+                                                        Remove{' '}
                                                     </button>
                                                 </div>
                                             </div>
@@ -154,8 +174,7 @@ export default function Cart() {
                                 <Link to="/">
                                     <button
                                         type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={() => setOpen(false)}>
+                                        className="font-medium text-indigo-600 hover:text-indigo-500">
                                         Continue Shopping
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>
