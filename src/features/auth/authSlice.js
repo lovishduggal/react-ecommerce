@@ -33,7 +33,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         increment: (state) => {
-            state.value += 1;
+            state.value = 1;
         },
     },
     extraReducers: (builder) => {
@@ -54,7 +54,7 @@ export const authSlice = createSlice({
             })
             .addCase(fetchCheckUserAsync.rejected, (state, action) => {
                 state.status = 'idle';
-                state.error = action.error;
+                state.error = action.error.message;
             })
             .addCase(signOutAsync.pending, (state, action) => {
                 state.status = 'loading';

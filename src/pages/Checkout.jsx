@@ -12,7 +12,9 @@ import {
     createOrderAsync,
     selectCurrentOrder,
 } from '../features/order/orderSlice';
-import {  selectUserInfo, updateUserAsync } from '../features/user/userSlice';
+import { selectUserInfo, updateUserAsync } from '../features/user/userSlice';
+import { discountPrice } from '../app/constants';
+import toast from 'react-hot-toast';
 
 function Checkout() {
     const dispatch = useDispatch();
@@ -24,13 +26,13 @@ function Checkout() {
     const user = useSelector(selectUserInfo);
     const currentOrder = useSelector(selectCurrentOrder);
     const totalAmount = items.reduce(
-        (amount, item) => item.price * item.quantity + amount,
+        (amount, item) => discountPrice(item.product) * item.quantity + amount,
         0
     );
     const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
     function handleQuantity(e, item) {
-        dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+        dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
     }
 
     const handleRemove = (e, id) => {
@@ -46,11 +48,12 @@ function Checkout() {
     };
 
     const handleOrder = (e) => {
+        if (!selectedAddress) return toast.error('Address is not selected');
         const order = {
             items,
             totalAmount,
             totalItems,
-            user,
+            user: user.id,
             paymentMethod,
             selectedAddress,
             status: 'pending', //? other status can be delivered, received
@@ -73,7 +76,6 @@ function Checkout() {
                                 noValidate
                                 className="bg-white px-5 mt-12 py-12"
                                 onSubmit={handleSubmit((data) => {
-                                    console.log(data);
                                     dispatch(
                                         updateUserAsync({
                                             ...user,
@@ -264,12 +266,18 @@ function Checkout() {
                                                         className="flex justify-between gap-x-6 py-5 px-5 border-solid border-2 border-gray-200 ">
                                                         <div className="flex min-w-0 gap-x-4">
                                                             <input
+                                                                {...register(
+                                                                    'address',
+                                                                    {
+                                                                        required:
+                                                                            'address is required',
+                                                                    }
+                                                                )}
                                                                 onChange={(e) =>
                                                                     handleAddress(
                                                                         e
                                                                     )
                                                                 }
-                                                                name="address"
                                                                 type="radio"
                                                                 value={index}
                                                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -375,8 +383,14 @@ function Checkout() {
                                                     className="flex py-6">
                                                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                         <img
-                                                            src={item.thumbnail}
-                                                            alt={item.title}
+                                                            src={
+                                                                item.product
+                                                                    .thumbnail
+                                                            }
+                                                            alt={
+                                                                item.product
+                                                                    .title
+                                                            }
                                                             className="h-full w-full object-cover object-center"
                                                         />
                                                     </div>
@@ -387,20 +401,29 @@ function Checkout() {
                                                                 <h3>
                                                                     <a
                                                                         href={
-                                                                            item.href
+                                                                            item
+                                                                                .product
+                                                                                .id
                                                                         }>
                                                                         {
-                                                                            item.title
+                                                                            item
+                                                                                .product
+                                                                                .title
                                                                         }
                                                                     </a>
                                                                 </h3>
                                                                 <p className="ml-4">
                                                                     $
-                                                                    {item.price}
+                                                                    {discountPrice(
+                                                                        item.product
+                                                                    )}
                                                                 </p>
                                                             </div>
                                                             <p className="mt-1 text-sm text-gray-500">
-                                                                {item.brand}
+                                                                {
+                                                                    item.product
+                                                                        .brand
+                                                                }
                                                             </p>
                                                         </div>
                                                         <div className="flex flex-1 items-end justify-between text-sm">

@@ -230,7 +230,7 @@ export default function UserProfile() {
                         </p>
                         <div className="space-y-1">
                             {user?.addresses?.map((address, index) => (
-                                <div>
+                                <div key={address.id}>
                                     {selectedEditIndex === index ? (
                                         <form
                                             noValidate

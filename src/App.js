@@ -15,7 +15,7 @@ import PageNotFound from './pages/404';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import UserOrdersPage from './pages/UserOrdersPage';
 import UserProfilePage from './pages/UserProfilePage';
-import { fetchLoggdInUserAsync } from './features/user/userSlice';
+import { fetchLoggedInUserAsync } from './features/user/userSlice';
 import Logout from './features/auth/components/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
@@ -23,7 +23,7 @@ import AdminHome from './pages/AdminHome';
 import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
     {
@@ -142,7 +142,7 @@ function App() {
     useEffect(() => {
         if (user) {
             dispatch(fetchItemsByUserIdAsync(user?.id));
-            dispatch(fetchLoggdInUserAsync(user?.id));
+            dispatch(fetchLoggedInUserAsync(user?.id));
         }
     }, [dispatch, user]);
 

@@ -55,14 +55,12 @@ export default function ProductDetails() {
 
     function handleCart(e) {
         e.preventDefault();
-        if (items.findIndex((item) => item.productID === product.id) < 0) {
+        if (items.findIndex((item) => item.product.id === product.id) < 0) {
             const newItem = {
-                ...product,
-                productID: product.id,
+                product: product.id,
                 quantity: 1,
                 user: user.id,
             };
-            delete newItem['id'];
             dispatch(addToCartAsync(newItem));
             //! TODO: It will based on server response of backend
             toast.success('Added to cart successfully');
