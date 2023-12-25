@@ -10,7 +10,11 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import Protected from './features/auth/components/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsByUserIdAsync } from './features/cart/cartSlice';
-import { selectLoggedInUser } from './features/auth/authSlice';
+import {
+    fetchCheckAuthAsync,
+    selectLoggedInUser,
+    selectUserChecked,
+} from './features/auth/authSlice';
 import PageNotFound from './pages/404';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import UserOrdersPage from './pages/UserOrdersPage';
@@ -23,7 +27,8 @@ import AdminHome from './pages/AdminHome';
 import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
-import  { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import { Grid } from 'react-loader-spinner';
 
 const router = createBrowserRouter([
     {
@@ -139,17 +144,42 @@ const router = createBrowserRouter([
 function App() {
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUser);
+    const userChecked = useSelector(selectUserChecked);
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(fetchCheckAuthAsync());
+        })();
+    }, [dispatch]);
     useEffect(() => {
         if (user) {
-            dispatch(fetchItemsByUserIdAsync(user?.id));
-            dispatch(fetchLoggedInUserAsync(user?.id));
+            dispatch(fetchItemsByUserIdAsync());
+            dispatch(fetchLoggedInUserAsync());
         }
     }, [dispatch, user]);
 
     return (
         <div className="App">
-            <RouterProvider router={router} />
-            <Toaster />
+            {!userChecked ? (
+                <div className="flex items-center justify-center h-screen w-[100vw]">
+                    {' '}
+                    <Grid
+                        height="80"
+                        width="80"
+                        color="#1F2937"
+                        ariaLabel="grid-loading"
+                        radius="12.5"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            ) : (
+                <>
+                    <RouterProvider router={router} />
+                    <Toaster />
+                </>
+            )}
         </div>
     );
 }

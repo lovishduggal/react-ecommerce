@@ -75,7 +75,6 @@ export default function ProductForm() {
                     product.rating = selectedProduct.rating || 0;
                     dispatch(updateProductAsync(product));
                 } else dispatch(createProductIdAsync(product));
-                console.log('ii');
                 reset();
             })}>
             <div className="space-y-12 bg-white p-12">
@@ -438,7 +437,7 @@ export default function ProductForm() {
                 </button>
             </div>
             <Modal
-                title={`Delete ${selectedProduct.title}`}
+                title={`Delete ${selectedProduct?.title}`}
                 message={'Are you sure you want to delete this Product?'}
                 dangerOption={'Delete'}
                 cancelOption={'Cancel'}

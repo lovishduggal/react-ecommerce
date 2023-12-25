@@ -28,7 +28,24 @@ export function checkUser(loginInfo) {
                 resolve({ data });
             } else {
                 const error = await response.json();
-                console.log(error);
+                reject(error);
+            }
+
+            //TODO: On server it will only return some info of user (not password)
+        } catch (error) {
+            reject({ error });
+        }
+    });
+}
+export function checkAuth() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch(`http://localhost:8080/auth/check`);
+            if (response.ok) {
+                const data = await response.json();
+                resolve({ data });
+            } else {
+                const error = await response.json();
                 reject(error);
             }
 

@@ -51,13 +51,12 @@ function AdminOrders() {
     }, [dispatch, page, sort]);
     return (
         <>
-            {console.log(totalOrders)}
             {orders && (
                 <>
-                    <div className="overflow-x-auto">
-                        <div className="flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
-                            <div className="w-full overflow-x-auto">
-                                <div className="bg-white shadow-md rounded my-6">
+                    <div>
+                        <div className="flex items-center justify-center bg-gray-100 font-sans">
+                            <div className="w-full bg-white overflow-x-auto">
+                                <div className=" rounded my-6">
                                     <table className="min-w-max w-full table-auto">
                                         <thead>
                                             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -129,36 +128,55 @@ function AdminOrders() {
                                                             </div>
                                                         </td>
                                                         <td className="py-3 px-6 text-left">
-                                                            {order.items.map(
-                                                                (item) => (
-                                                                    <div className="flex items-center">
-                                                                        <div className="mr-2">
-                                                                            <img
-                                                                                className="w-6 h-6 rounded-full"
-                                                                                src={
-                                                                                    item.thumbnail
-                                                                                }
-                                                                            />
-                                                                        </div>
-                                                                        <span>
-                                                                            {
-                                                                                item.title
-                                                                            }{' '}
-                                                                            - #
-                                                                            {
-                                                                                item.quantity
-                                                                            }{' '}
-                                                                            - $
-                                                                            {discountPrice(
+                                                            <div className="flex flex-col items-start">
+                                                                {order.items.map(
+                                                                    (item) => (
+                                                                        <div
+                                                                            key={
                                                                                 item
-                                                                            )}
-                                                                        </span>
-                                                                    </div>
-                                                                )
-                                                            )}
+                                                                                    .product
+                                                                                    .id
+                                                                            }
+                                                                            className="flex items-center mb-2">
+                                                                            <div className="mr-2">
+                                                                                <img
+                                                                                    className="w-6 h-6 rounded-full"
+                                                                                    src={
+                                                                                        item
+                                                                                            .product
+                                                                                            .thumbnail
+                                                                                    }
+                                                                                    alt={
+                                                                                        item
+                                                                                            .product
+                                                                                            .title
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                            <span>
+                                                                                {
+                                                                                    item
+                                                                                        .product
+                                                                                        .title
+                                                                                }{' '}
+                                                                                -
+                                                                                #
+                                                                                {
+                                                                                    item.quantity
+                                                                                }{' '}
+                                                                                -
+                                                                                $
+                                                                                {discountPrice(
+                                                                                    item.product
+                                                                                )}
+                                                                            </span>
+                                                                        </div>
+                                                                    )
+                                                                )}
+                                                            </div>
                                                         </td>
                                                         <td className="py-3 px-6 text-center">
-                                                            <div className="flex  items-center justify-center">
+                                                            <div className="flex items-center justify-center">
                                                                 $
                                                                 {
                                                                     order.totalAmount
@@ -166,7 +184,7 @@ function AdminOrders() {
                                                             </div>
                                                         </td>
                                                         <td className="py-3 px-6 text-center">
-                                                            <div className="flex flex-col items-center justify-center">
+                                                            <div className="flex flex-col items-start">
                                                                 <strong>
                                                                     {
                                                                         order
@@ -227,7 +245,8 @@ function AdminOrders() {
                                                                             e,
                                                                             order
                                                                         )
-                                                                    }>
+                                                                    }
+                                                                    className="w-full p-2 rounded-md">
                                                                     <option>
                                                                         --Choose--
                                                                     </option>
@@ -266,7 +285,7 @@ function AdminOrders() {
                                                                     <EyeIcon></EyeIcon>
                                                                 </div>
                                                                 <div
-                                                                    className="w-6 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer "
+                                                                    className="w-6 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer"
                                                                     onClick={(
                                                                         e
                                                                     ) =>

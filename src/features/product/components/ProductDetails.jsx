@@ -9,7 +9,6 @@ import {
 } from '../productSlice';
 import { useParams } from 'react-router-dom';
 import { addToCartAsync, selectItems } from '../../cart/cartSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
 import { discountPrice } from '../../../app/constants';
 import toast from 'react-hot-toast';
 import { Grid } from 'react-loader-spinner';
@@ -37,8 +36,6 @@ const highlights = [
     'Ultra-soft 100% cotton',
 ];
 
-const reviews = { href: '#', average: 4, totalCount: 117 };
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
@@ -46,7 +43,6 @@ function classNames(...classes) {
 export default function ProductDetails() {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const user = useSelector(selectLoggedInUser);
     const items = useSelector(selectItems);
     const product = useSelector(selectProductById);
     const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -59,7 +55,6 @@ export default function ProductDetails() {
             const newItem = {
                 product: product.id,
                 quantity: 1,
-                user: user.id,
             };
             dispatch(addToCartAsync(newItem));
             //! TODO: It will based on server response of backend

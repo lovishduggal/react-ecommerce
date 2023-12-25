@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     deleteItemFromCartAsync,
+    selectCartLoaded,
     selectItems,
     selectStatus,
     updateCartAsync,
@@ -17,6 +18,7 @@ export default function Cart() {
     const [openModal, setOpenModal] = useState(null);
     const items = useSelector(selectItems);
     const status = useSelector(selectStatus);
+    const cartLoaded = useSelector(selectCartLoaded);
     const totalAmount = items.reduce(
         (amount, item) => discountPrice(item?.product) * item.quantity + amount,
         0
@@ -191,7 +193,7 @@ export default function Cart() {
                     </div>
                 </div>
             ) : (
-                <Navigate to="/login" replace={true}></Navigate>
+                cartLoaded && <Navigate to="/login" replace={true}></Navigate>
             )}
         </>
     );

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import {
     deleteItemFromCartAsync,
+    selectCartLoaded,
     selectItems,
     updateCartAsync,
 } from '../features/cart/cartSlice';
@@ -25,6 +26,7 @@ function Checkout() {
     const items = useSelector(selectItems);
     const user = useSelector(selectUserInfo);
     const currentOrder = useSelector(selectCurrentOrder);
+    const cartLoaded = useSelector(selectCartLoaded);
     const totalAmount = items.reduce(
         (amount, item) => discountPrice(item.product) * item.quantity + amount,
         0
@@ -65,10 +67,11 @@ function Checkout() {
     };
     return (
         <>
+            {console.log(cartLoaded, items)}
             {currentOrder && (
                 <Navigate to={`/order-success/${currentOrder.id}`}></Navigate>
             )}
-            {items.length > 0 ? (
+            {cartLoaded && items.length > 0 ? (
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
                         <div className="lg:col-span-3">
@@ -259,59 +262,61 @@ function Checkout() {
                                         </p>
 
                                         <ul role="list" className="space-y-4">
-                                            {user.addresses.map(
-                                                (address, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="flex justify-between gap-x-6 py-5 px-5 border-solid border-2 border-gray-200 ">
-                                                        <div className="flex min-w-0 gap-x-4">
-                                                            <input
-                                                                {...register(
-                                                                    'address',
-                                                                    {
-                                                                        required:
-                                                                            'address is required',
-                                                                    }
-                                                                )}
-                                                                onChange={(e) =>
-                                                                    handleAddress(
+                                            {user &&
+                                                user?.addresses?.map(
+                                                    (address, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className="flex justify-between gap-x-6 py-5 px-5 border-solid border-2 border-gray-200 ">
+                                                            <div className="flex min-w-0 gap-x-4">
+                                                                <input
+                                                                    onChange={(
                                                                         e
-                                                                    )
-                                                                }
-                                                                type="radio"
-                                                                value={index}
-                                                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                            />
-                                                            <div className="min-w-0 flex-auto">
-                                                                <p className="text-sm font-semibold leading-6 text-gray-900">
-                                                                    {
-                                                                        address.name
+                                                                    ) =>
+                                                                        handleAddress(
+                                                                            e
+                                                                        )
                                                                     }
-                                                                </p>
-                                                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                                    type="radio"
+                                                                    value={
+                                                                        index
+                                                                    }
+                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                />
+                                                                <div className="min-w-0 flex-auto">
+                                                                    <p className="text-sm font-semibold leading-6 text-gray-900">
+                                                                        {
+                                                                            address.name
+                                                                        }
+                                                                    </p>
+                                                                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                                        {
+                                                                            address.street
+                                                                        }
+                                                                    </p>
+                                                                    <p className="text-sm leading-6 text-gray-500">
+                                                                        {
+                                                                            address.pinCode
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                                                <p className="text-sm leading-6 text-gray-900">
+                                                                    Phone:{' '}
                                                                     {
-                                                                        address.street
+                                                                        address.phone
                                                                     }
                                                                 </p>
                                                                 <p className="text-sm leading-6 text-gray-500">
                                                                     {
-                                                                        address.pinCode
+                                                                        address.city
                                                                     }
                                                                 </p>
                                                             </div>
-                                                        </div>
-                                                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                                            <p className="text-sm leading-6 text-gray-900">
-                                                                Phone:{' '}
-                                                                {address.phone}
-                                                            </p>
-                                                            <p className="text-sm leading-6 text-gray-500">
-                                                                {address.city}
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                )
-                                            )}
+                                                        </li>
+                                                    )
+                                                )}
                                         </ul>
                                         <div className="mt-10 space-y-10">
                                             <fieldset>
@@ -526,7 +531,7 @@ function Checkout() {
                     </div>
                 </div>
             ) : (
-                <Navigate to="/login" replace={true}></Navigate>
+                cartLoaded && <Navigate to="/login" replace={true}></Navigate>
             )}
         </>
     );

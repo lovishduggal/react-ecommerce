@@ -10,7 +10,6 @@ export default function Signup() {
     const {
         register,
         handleSubmit,
-
         formState: { errors },
     } = useForm();
 

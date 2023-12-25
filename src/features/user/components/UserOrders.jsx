@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    fetchLoggedInUserOrdersAsync,
-    selectUserInfo,
-    selectUserOrders,
-} from '../userSlice';
+import { fetchLoggedInUserOrdersAsync, selectUserOrders } from '../userSlice';
 import { discountPrice } from '../../../app/constants';
 
 export default function UserOrders() {
     const dispatch = useDispatch();
-    const user = useSelector(selectUserInfo);
     const orders = useSelector(selectUserOrders);
 
     useEffect(() => {
-        dispatch(fetchLoggedInUserOrdersAsync(user?.id));
-    }, [dispatch, user.id]);
+        dispatch(fetchLoggedInUserOrdersAsync());
+    }, [dispatch]);
 
     return (
         <div>
