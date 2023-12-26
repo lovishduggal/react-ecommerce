@@ -68,8 +68,11 @@ function Checkout() {
     return (
         <>
             {console.log(cartLoaded, items)}
-            {currentOrder && (
+            {currentOrder && currentOrder.paymentMethod === 'cash' && (
                 <Navigate to={`/order-success/${currentOrder.id}`}></Navigate>
+            )}
+            {currentOrder && currentOrder.paymentMethod === 'card' && (
+                <Navigate to={`/stripe-checkout`}></Navigate>
             )}
             {cartLoaded && items.length > 0 ? (
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

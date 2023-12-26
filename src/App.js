@@ -29,6 +29,7 @@ import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import { Toaster } from 'react-hot-toast';
 import { Grid } from 'react-loader-spinner';
+import StripeCheckout from './pages/StripeCheckout';
 
 const router = createBrowserRouter([
     {
@@ -134,6 +135,14 @@ const router = createBrowserRouter([
     {
         path: '/forgot-password',
         element: <ForgotPasswordPage></ForgotPasswordPage>,
+    },
+    {
+        path: '/stripe-checkout/',
+        element: (
+            <Protected>
+                <StripeCheckout></StripeCheckout>
+            </Protected>
+        ),
     },
     {
         path: '*',
