@@ -63,7 +63,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: `http://localhost:8080/order-success/${currentOrder.id}`,
+                return_url: `http://localhost:3000/order-success/${currentOrder.id}`,
             },
         });
 
@@ -75,6 +75,7 @@ export default function CheckoutForm() {
         if (error.type === 'card_error' || error.type === 'validation_error') {
             setMessage(error.message);
         } else {
+            console.log(error);
             setMessage('An unexpected error occurred.');
         }
 
@@ -82,7 +83,7 @@ export default function CheckoutForm() {
     };
 
     const paymentElementOptions = {
-        layout: 'tabs',
+        layout: 'accordion',
     };
 
     return (
