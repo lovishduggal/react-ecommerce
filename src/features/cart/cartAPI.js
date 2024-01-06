@@ -1,5 +1,6 @@
 export function addToCart(item) {
     return new Promise(async (resolve) => {
+        console.log(item);
         const response = await fetch('http://localhost:8080/cart', {
             method: 'POST',
             body: JSON.stringify(item),

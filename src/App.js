@@ -30,6 +30,7 @@ import AdminOrdersPage from './pages/AdminOrdersPage';
 import { Toaster } from 'react-hot-toast';
 import { Grid } from 'react-loader-spinner';
 import StripeCheckout from './pages/StripeCheckout';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const router = createBrowserRouter([
     {
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
         path: '/logout',
         element: <Logout></Logout>,
         //* We will add page later right now
+    },
+    {
+        path: '/reset-password',
+        element: <ResetPasswordPage></ResetPasswordPage>,
     },
     {
         path: '/forgot-password',
