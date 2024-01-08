@@ -22,14 +22,28 @@ export default function ProductForm() {
     const selectedProduct = useSelector(selectProductById);
     const [openModal, setOpenModal] = useState(null);
     const params = useParams();
-
+    const sizes = [
+        { name: 'XXS', inStock: true, id: 'xxs' },
+        { name: 'XS', inStock: true, id: 'xs' },
+        { name: 'S', inStock: true, id: 's' },
+        { name: 'M', inStock: true, id: 'm' },
+        { name: 'L', inStock: true, id: 'l' },
+        { name: 'XL', inStock: true, id: 'xl' },
+        { name: '2XL', inStock: true, id: '2l' },
+        { name: '3XL', inStock: true, id: '3xl' },
+    ];
+    const colors = [
+        { name: 'White', selectedClass: 'bg-white-400', id: 'white' },
+        { name: 'Gray', selectedClass: 'bg-gray-400', id: 'gray' },
+        { name: 'Black', selectedClass: 'bg-black', id: 'black' },
+        { name: 'Red', selectedClass: 'bg-red-900', id: 'red' },
+    ];
     const handleDelete = (e) => {
         const product = { ...selectedProduct };
         product.id = params.id;
         product.deleted = true;
         dispatch(updateProductAsync(product));
     };
-
     useEffect(() => {
         if (params.id) {
             dispatch(fetchProductByIdAsync(params.id));
@@ -50,6 +64,18 @@ export default function ProductForm() {
             setValue('image4', selectedProduct.images[3]);
             setValue('brand', selectedProduct.brand);
             setValue('category', selectedProduct.category);
+            setValue(
+                'colors',
+                selectedProduct.colors.map((color) => color.id)
+            );
+            setValue(
+                'sizes',
+                selectedProduct.sizes.map((size) => size.id)
+            );
+            setValue('highlight1', selectedProduct.highlights[0]);
+            setValue('highlight2', selectedProduct.highlights[1]);
+            setValue('highlight3', selectedProduct.highlights[2]);
+            setValue('highlight4', selectedProduct.highlights[3]);
         }
     }, [selectedProduct, setValue, params.id]);
     return (
@@ -63,6 +89,25 @@ export default function ProductForm() {
                     product.image3,
                     product.image4,
                 ];
+                product.highlights = [
+                    product.highlight1,
+                    product.highlight2,
+                    product.highlight3,
+                    product.highlight4,
+                ];
+
+                product.colors = product?.colors
+                    ? product?.colors?.map((color) =>
+                          colors.find((clr) => clr.id === color)
+                      )
+                    : [];
+
+                product.sizes = product?.sizes
+                    ? product?.sizes?.map((size) =>
+                          sizes.find((sz) => sz.id === size)
+                      )
+                    : [];
+                console.log(product);
                 delete product['image1'];
                 delete product['image2'];
                 delete product['image3'];
@@ -149,6 +194,48 @@ export default function ProductForm() {
                         </div>
                         <div className="col-span-full">
                             <label
+                                htmlFor="colors"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Colors
+                            </label>
+                            <div className="mt-2">
+                                {colors.map((color, index) => (
+                                    <div
+                                        key={color.id}
+                                        className="flex items-center">
+                                        <input
+                                            className="mx-2"
+                                            {...register('colors')}
+                                            type="checkbox"
+                                            value={color.id}></input>{' '}
+                                        <span> {color.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="col-span-full">
+                            <label
+                                htmlFor="sizes"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Sizes
+                            </label>
+                            <div className="mt-2 flex items-center">
+                                {sizes.map((size, index) => (
+                                    <div
+                                        key={size.id}
+                                        className="flex items-center">
+                                        <input
+                                            className="mx-2"
+                                            {...register('sizes')}
+                                            type="checkbox"
+                                            value={size.id}></input>{' '}
+                                        <span>{size.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="col-span-full">
+                            <label
                                 htmlFor="category"
                                 className="block text-sm font-medium leading-6 text-gray-900">
                                 Category
@@ -160,8 +247,10 @@ export default function ProductForm() {
                                     })}
                                     className="block flex-1 border-1 rounded-md bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                                     <option>Choose</option>
-                                    {categories.map((category) => (
-                                        <option value={category.value}>
+                                    {categories.map((category, idx) => (
+                                        <option
+                                            value={category.value}
+                                            key={idx}>
                                             {category.label}
                                         </option>
                                     ))}
@@ -275,7 +364,7 @@ export default function ProductForm() {
                             <label
                                 htmlFor="image2"
                                 className="block text-sm font-medium leading-6 text-gray-900">
-                                Image2
+                                Image 2
                             </label>
                             <div className="mt-2">
                                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
@@ -294,7 +383,7 @@ export default function ProductForm() {
                             <label
                                 htmlFor="image3"
                                 className="block text-sm font-medium leading-6 text-gray-900">
-                                Image3
+                                Image 3
                             </label>
                             <div className="mt-2">
                                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
@@ -313,7 +402,7 @@ export default function ProductForm() {
                             <label
                                 htmlFor="image4"
                                 className="block text-sm font-medium leading-6 text-gray-900">
-                                Image4
+                                Image 4
                             </label>
                             <div className="mt-2">
                                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
@@ -323,6 +412,74 @@ export default function ProductForm() {
                                             required: 'Image 4 is required',
                                         })}
                                         id="image4"
+                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                            <label
+                                htmlFor="highlight1"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Highlight 1
+                            </label>
+                            <div className="mt-2">
+                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                                    <input
+                                        type="text"
+                                        {...register('highlight1')}
+                                        id="highlight1"
+                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                            <label
+                                htmlFor="highlight2"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Highlight 2
+                            </label>
+                            <div className="mt-2">
+                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                                    <input
+                                        type="text"
+                                        {...register('highlight2')}
+                                        id="highlight2"
+                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                            <label
+                                htmlFor="highlight3"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Highlight 3
+                            </label>
+                            <div className="mt-2">
+                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                                    <input
+                                        type="text"
+                                        {...register('highlight3')}
+                                        id="highlight3"
+                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                            <label
+                                htmlFor="highlight4"
+                                className="block text-sm font-medium leading-6 text-gray-900">
+                                Highlight 4
+                            </label>
+                            <div className="mt-2">
+                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                                    <input
+                                        type="text"
+                                        {...register('highlight4')}
+                                        id="highlight4"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                     />
                                 </div>

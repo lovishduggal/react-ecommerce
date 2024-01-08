@@ -53,8 +53,8 @@ function AdminOrders() {
         <>
             {orders && (
                 <>
-                    <div>
-                        <div className="flex items-center justify-center bg-gray-100 font-sans">
+                    <div className="overflow-x-hidden">
+                        <div className="flex items-center justify-center bg-gray-100 font-sans ">
                             <div className="w-full bg-white overflow-x-auto">
                                 <div className=" rounded my-6">
                                     <table className="min-w-max w-full table-auto">
@@ -110,6 +110,49 @@ function AdminOrders() {
                                                 <th className="py-3 px-6 text-center">
                                                     Status
                                                 </th>
+                                                <th
+                                                    className="py-3 px-6 text-center cursor-pointer"
+                                                    onClick={(e) =>
+                                                        handleSort(e, {
+                                                            sort: 'createdAt',
+                                                            order:
+                                                                sort._order ===
+                                                                'desc'
+                                                                    ? 'asc'
+                                                                    : 'desc',
+                                                        })
+                                                    }>
+                                                    Order Time{' '}
+                                                    {sort._sort ===
+                                                        'createdAt' &&
+                                                    sort._order === 'desc' ? (
+                                                        <ArrowDownIcon className="w-4 h-4 inline-block" />
+                                                    ) : (
+                                                        <ArrowUpIcon className="w-4 h-4 inline-block" />
+                                                    )}
+                                                </th>
+                                                <th
+                                                    className="py-3 px-6 text-center cursor-pointer"
+                                                    onClick={(e) =>
+                                                        handleSort(e, {
+                                                            sort: 'updatedAt',
+                                                            order:
+                                                                sort._order ===
+                                                                'desc'
+                                                                    ? 'asc'
+                                                                    : 'desc',
+                                                        })
+                                                    }>
+                                                    Last Updated{' '}
+                                                    {sort._sort ===
+                                                        'updatedAt' &&
+                                                    sort._order === 'desc' ? (
+                                                        <ArrowDownIcon className="w-4 h-4 inline-block" />
+                                                    ) : (
+                                                        <ArrowUpIcon className="w-4 h-4 inline-block" />
+                                                    )}
+                                                </th>
+
                                                 <th className="py-3 px-6 text-center">
                                                     Actions
                                                 </th>
@@ -270,6 +313,26 @@ function AdminOrders() {
                                                                     }
                                                                 </span>
                                                             )}
+                                                        </td>
+                                                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                            <div className="flex items-center">
+                                                                <div className="mr-2"></div>
+                                                                <span className="font-medium">
+                                                                    {new Date(
+                                                                        order.createdAt
+                                                                    ).toLocaleString()}
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                            <div className="flex items-center">
+                                                                <div className="mr-2"></div>
+                                                                <span className="font-medium">
+                                                                    {new Date(
+                                                                        order.updatedAt
+                                                                    ).toLocaleString()}
+                                                                </span>
+                                                            </div>
                                                         </td>
                                                         <td className="py-3 px-6 text-center">
                                                             <div className="flex item-center justify-center">

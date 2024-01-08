@@ -42,7 +42,7 @@ export default function NavBar({ children }) {
                                             <Link to="/">
                                                 <div className="flex-shrink-0">
                                                     <img
-                                                        className="h-8 w-8"
+                                                        className="h-16 w-16"
                                                         src="/ec-logo.png"
                                                         alt="Your Company"
                                                     />

@@ -26,7 +26,7 @@ export default function Login() {
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <img
-                            className="mx-auto h-10 w-auto"
+                            className="mx-auto h-40 w-40"
                             src="/ec-logo.png"
                             alt="Your Company"
                         />
@@ -72,6 +72,11 @@ export default function Login() {
                                     {errors.email && (
                                         <span className="text-red-500">
                                             {errors.email.message}
+                                        </span>
+                                    )}
+                                    {errors && (
+                                        <span className="text-red-500">
+                                            {error}
                                         </span>
                                     )}
                                 </div>
