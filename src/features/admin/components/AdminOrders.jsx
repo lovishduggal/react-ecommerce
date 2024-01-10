@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ITEMS_PER_PAGE, discountPrice } from '../../../app/constants';
+import { ITEMS_PER_PAGE } from '../../../app/constants';
 import {
     EyeIcon,
     PencilIcon,
@@ -29,8 +29,13 @@ function AdminOrders() {
     const handleEdit = (order) => {
         setEditableOrderId(order.id);
     };
-    const handleUpdate = (e, order) => {
+    const handleOrderStatus = (e, order) => {
         const updatedOrder = { ...order, status: e.target.value };
+        dispatch(updateOrderAsync(updatedOrder));
+        setEditableOrderId(-1);
+    };
+    const handleOrderPaymentStatus = (e, order) => {
+        const updatedOrder = { ...order, paymentStatus: e.target.value };
         dispatch(updateOrderAsync(updatedOrder));
         setEditableOrderId(-1);
     };
@@ -47,7 +52,6 @@ function AdminOrders() {
     useEffect(() => {
         const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
         dispatch(fecthAllOrdersAsync({ pagination, sort }));
-        //! TODO: Server will filter deleted products
     }, [dispatch, page, sort]);
     return (
         <>
@@ -56,7 +60,7 @@ function AdminOrders() {
                     <div className="overflow-x-hidden">
                         <div className="flex items-center justify-center bg-gray-100 font-sans ">
                             <div className="w-full bg-white overflow-x-auto">
-                                <div className=" rounded my-6">
+                                <div className="rounded my-6">
                                     <table className="min-w-max w-full table-auto">
                                         <thead>
                                             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -108,7 +112,13 @@ function AdminOrders() {
                                                     Shipping Address
                                                 </th>
                                                 <th className="py-3 px-6 text-center">
-                                                    Status
+                                                    Order Status
+                                                </th>
+                                                <th className="py-3 px-6 text-center">
+                                                    Payment
+                                                </th>
+                                                <th className="py-3 px-6 text-center">
+                                                    Payment Status
                                                 </th>
                                                 <th
                                                     className="py-3 px-6 text-center cursor-pointer"
@@ -161,7 +171,7 @@ function AdminOrders() {
                                         <tbody className="text-gray-600 text-sm font-light">
                                             {orders &&
                                                 orders?.map((order) => (
-                                                    <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={order.id}>
                                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <div className="mr-2"></div>
@@ -209,9 +219,11 @@ function AdminOrders() {
                                                                                 }{' '}
                                                                                 -
                                                                                 $
-                                                                                {discountPrice(
-                                                                                    item.product
-                                                                                )}
+                                                                                {
+                                                                                    item
+                                                                                        .product
+                                                                                        .discountPrice
+                                                                                }
                                                                             </span>
                                                                         </div>
                                                                     )
@@ -284,7 +296,7 @@ function AdminOrders() {
                                                                     onChange={(
                                                                         e
                                                                     ) =>
-                                                                        handleUpdate(
+                                                                        handleOrderStatus(
                                                                             e,
                                                                             order
                                                                         )
@@ -314,6 +326,45 @@ function AdminOrders() {
                                                                 </span>
                                                             )}
                                                         </td>
+                                                        <td className="py-3 px-6 text-center">
+                                                            <div className="flex items-center justify-center font-medium">
+                                                                {
+                                                                    order.paymentMethod
+                                                                }
+                                                            </div>
+                                                        </td>
+                                                        <td className="py-3 px-6 text-center">
+                                                            {order.id ===
+                                                            editableOrderId ? (
+                                                                <select
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleOrderPaymentStatus(
+                                                                            e,
+                                                                            order
+                                                                        )
+                                                                    }
+                                                                    className="w-full p-2 rounded-md">
+                                                                    <option>
+                                                                        --Choose--
+                                                                    </option>
+                                                                    <option value="pending">
+                                                                        Pending
+                                                                    </option>
+                                                                    <option value="Received">
+                                                                        Received
+                                                                    </option>
+                                                                </select>
+                                                            ) : (
+                                                                <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
+                                                                    {
+                                                                        order.paymentStatus
+                                                                    }
+                                                                </span>
+                                                            )}
+                                                        </td>
+
                                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <div className="mr-2"></div>

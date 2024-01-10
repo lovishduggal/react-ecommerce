@@ -23,17 +23,21 @@ import {
     FunnelIcon,
     MinusIcon,
     PlusIcon,
-    Squares2X2Icon,
 } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { ITEMS_PER_PAGE } from '../../../app/constants';
 
 const sortOptions = [
     { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-    { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
+    {
+        name: 'Price: Low to High',
+        sort: 'discountPrice',
+        order: 'asc',
+        current: false,
+    },
     {
         name: 'Price: High to Low',
-        sort: 'price',
+        sort: 'discountPrice',
         order: 'desc',
         current: false,
     },
@@ -69,7 +73,6 @@ export default function AdminProductList() {
 
     const handleFilter = (e, section, option) => {
         const newFilter = { ...filter };
-        //TODO: On server it will support multiple categories
         if (e.target.checked) {
             if (newFilter[section.id]) newFilter[section.id].push(option.value);
             else newFilter[section.id] = [option.value];
@@ -79,7 +82,6 @@ export default function AdminProductList() {
             );
             newFilter[section.id].splice(index, 1);
         }
-        console.log({ newFilter });
         setFilter(newFilter);
     };
 
@@ -88,18 +90,23 @@ export default function AdminProductList() {
             _sort: option.sort,
             _order: option.order,
         };
-        console.log({ sort });
         setSort(sort);
     };
 
     const handlePage = (e, page) => {
-        console.log(page);
         setPage(page);
     };
 
     useEffect(() => {
         const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-        dispatch(fetchAllProductsByFiltersAsync({ filter, sort, pagination }));
+        dispatch(
+            fetchAllProductsByFiltersAsync({
+                filter,
+                sort,
+                pagination,
+                admin: true,
+            })
+        );
     }, [dispatch, filter, sort, page]);
 
     useEffect(() => {
@@ -197,10 +204,6 @@ export default function AdminProductList() {
                                         <span className="sr-only">
                                             View grid
                                         </span>
-                                        <Squares2X2Icon
-                                            className="h-5 w-5"
-                                            aria-hidden="true"
-                                        />
                                     </button>
                                     <button
                                         type="button"

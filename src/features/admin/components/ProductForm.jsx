@@ -107,7 +107,6 @@ export default function ProductForm() {
                           sizes.find((sz) => sz.id === size)
                       )
                     : [];
-                console.log(product);
                 delete product['image1'];
                 delete product['image2'];
                 delete product['image3'];

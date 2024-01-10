@@ -9,7 +9,6 @@ import {
 } from '../productSlice';
 import { useParams } from 'react-router-dom';
 import { addToCartAsync, selectItems } from '../../cart/cartSlice';
-import { discountPrice } from '../../../app/constants';
 import toast from 'react-hot-toast';
 import { Grid } from 'react-loader-spinner';
 
@@ -25,7 +24,6 @@ export default function ProductDetails() {
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const status = useSelector(selectStatus);
-    console.log(product);
     function handleCart(e) {
         e.preventDefault();
         if (items.findIndex((item) => item.product.id === product.id) < 0) {
@@ -36,8 +34,6 @@ export default function ProductDetails() {
             if (selectedColor) newItem.color = selectedColor;
             if (selectedSize) newItem.size = selectedSize;
             dispatch(addToCartAsync(newItem));
-            //! TODO: It will based on server response of backend
-            toast.success('Added to cart successfully');
         } else {
             toast.error('Already added to cart');
         }
@@ -50,7 +46,7 @@ export default function ProductDetails() {
     return (
         <div className="bg-white">
             {status === 'loading' ? (
-                <div className="flex items-center justify-center h-screen w-[100vw]">
+                <div className="flex items-center justify-center h-screen">
                     {' '}
                     <Grid
                         height="80"
@@ -66,41 +62,16 @@ export default function ProductDetails() {
             ) : (
                 product && (
                     <div className="pt-6">
-                        <nav aria-label="Breadcrumb">
-                            <ol
-                                role="list"
-                                className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                                {product.breadcrumbs &&
-                                    product.breadcrumbs.map((breadcrumb) => (
-                                        <li key={breadcrumb.id}>
-                                            <div className="flex items-center">
-                                                <a
-                                                    href={breadcrumb.href}
-                                                    className="mr-2 text-sm font-medium text-gray-900">
-                                                    {breadcrumb.name}
-                                                </a>
-                                                <svg
-                                                    width={16}
-                                                    height={20}
-                                                    viewBox="0 0 16 20"
-                                                    fill="currentColor"
-                                                    aria-hidden="true"
-                                                    className="h-5 w-4 text-gray-300">
-                                                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                                                </svg>
-                                            </div>
-                                        </li>
-                                    ))}
-                                <li className="text-sm">
-                                    <a
-                                        href={product.href}
-                                        aria-current="page"
-                                        className="font-medium text-gray-500 hover:text-gray-600">
-                                        {product.title}
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
+                        <div className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                            <div className="text-sm">
+                                <a
+                                    href={product.href}
+                                    aria-current="page"
+                                    className="font-medium text-gray-500 hover:text-gray-600">
+                                    {product.title}
+                                </a>
+                            </div>
+                        </div>
 
                         {/* Image gallery */}
                         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -148,7 +119,7 @@ export default function ProductDetails() {
                             <div className="mt-4 lg:row-span-3 lg:mt-0">
                                 <h2 className="sr-only">Product information</h2>
                                 <p className="text-3xl font-medium text-gray-900">
-                                    ${discountPrice(product)}
+                                    ${product.discountPrice}
                                 </p>
                                 <p className="text-sm tracking-tight text-gray-900 line-through">
                                     ${product.price}

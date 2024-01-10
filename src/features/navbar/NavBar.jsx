@@ -18,7 +18,7 @@ const navigation = [
 ];
 const userNavigation = [
     { name: 'My Profile', link: '/profile' },
-    { name: 'My orders', link: '/orders' },
+    { name: 'My orders', link: '/my-orders' },
     { name: 'Sign out', link: '/logout' },
 ];
 

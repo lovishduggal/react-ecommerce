@@ -8,6 +8,7 @@ import {
     fetchProductById,
     updateProduct,
 } from './productAPI';
+import toast from 'react-hot-toast';
 
 const initialState = {
     products: [],
@@ -28,11 +29,12 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchAllProductsByFiltersAsync = createAsyncThunk(
     'product/fetchAllProducts',
-    async ({ filter, sort, pagination }) => {
+    async ({ filter, sort, pagination, admin }) => {
         const response = await fetchAllProductsByFilters(
             filter,
             sort,
-            pagination
+            pagination,
+            admin
         );
         return response.data;
     }
@@ -66,6 +68,7 @@ export const createProductIdAsync = createAsyncThunk(
     'product/createProduct',
     async (product) => {
         const response = await createProduct(product);
+        toast.success('Product created successfully');
         return response.data;
     }
 );
@@ -73,6 +76,7 @@ export const updateProductAsync = createAsyncThunk(
     'product/updateProduct',
     async (update) => {
         const response = await updateProduct(update);
+        toast.success('Product updated successfully');
         return response.data;
     }
 );

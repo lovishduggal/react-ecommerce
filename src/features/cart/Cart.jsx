@@ -11,7 +11,6 @@ import {
 import { Link, Navigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
-import { discountPrice } from '../../app/constants';
 
 export default function Cart() {
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ export default function Cart() {
     const status = useSelector(selectStatus);
     const cartLoaded = useSelector(selectCartLoaded);
     const totalAmount = items.reduce(
-        (amount, item) => discountPrice(item?.product) * item.quantity + amount,
+        (amount, item) => item?.product?.discountPrice * item.quantity + amount,
         0
     );
     const totalItems = items.reduce((total, item) => item.quantity + total, 0);
@@ -81,9 +80,10 @@ export default function Cart() {
                                                     </h3>
                                                     <p className="ml-4">
                                                         $
-                                                        {discountPrice(
+                                                        {
                                                             item.product
-                                                        )}
+                                                                .discountPrice
+                                                        }
                                                     </p>
                                                 </div>
                                                 <p className="mt-1 text-sm text-gray-500">

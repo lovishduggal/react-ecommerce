@@ -16,7 +16,6 @@ export default function ForgotPassword() {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    console.log(mailSent);
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -36,7 +35,6 @@ export default function ForgotPassword() {
                         noValidate
                         className="space-y-6"
                         onSubmit={handleSubmit((data) => {
-                            console.log(data);
                             dispatch(resetPasswordRequestAsync(data.email));
                         })}>
                         <div>

@@ -21,11 +21,10 @@ export default function StripeCheckout() {
     const currentOrder = useSelector(selectCurrentOrder);
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch('http://localhost:8080/create-payment-intent', {
+        fetch('/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(currentOrder),
-            meta: { order_id: currentOrder.id }, //* This info will go to stripe and then to our webhook. So, we can conclude that payment was successful, even if client closes window after pay
         })
             .then((res) => res.json())
             .then((data) => {

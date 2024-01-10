@@ -6,6 +6,7 @@ import {
     deleteItemFromCart,
     resetCart,
 } from './cartAPI';
+import toast from 'react-hot-toast';
 
 const initialState = {
     items: [],
@@ -17,6 +18,7 @@ export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
     async (item) => {
         const response = await addToCart(item);
+        toast.success('Added to cart successfully');
         return response.data;
     }
 );

@@ -30,7 +30,6 @@ export const fetchCheckUserAsync = createAsyncThunk(
     async (loginInfo, { rejectWithValue }) => {
         try {
             const response = await checkUser(loginInfo);
-            console.log(response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.data);
@@ -91,7 +90,6 @@ export const authSlice = createSlice({
                 state.loggedInUser = action.payload;
             })
             .addCase(fetchCheckUserAsync.rejected, (state, action) => {
-                console.log(action);
                 state.status = 'idle';
                 state.error = action.payload;
             })
@@ -111,7 +109,6 @@ export const authSlice = createSlice({
                 state.userChecked = true;
             })
             .addCase(fetchCheckAuthAsync.rejected, (state, action) => {
-                console.log(action);
                 state.status = 'idle';
                 state.userChecked = true;
             })
