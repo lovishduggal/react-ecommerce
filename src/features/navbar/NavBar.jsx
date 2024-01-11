@@ -105,9 +105,7 @@ export default function NavBar({ children }) {
                                                             </span>
                                                             <img
                                                                 className="h-8 w-8 rounded-full"
-                                                                src={
-                                                                    userInfo.imageUrl
-                                                                }
+                                                                src={`https://as2.ftcdn.net/v2/jpg/06/44/26/23/1000_F_644262384_Ip7Hf511qMoq3MluUdJ5MdMGQchjlVQI.jpg`}
                                                                 alt=""
                                                             />
                                                         </Menu.Button>
@@ -178,32 +176,35 @@ export default function NavBar({ children }) {
 
                                 <Disclosure.Panel className="md:hidden">
                                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                                        {navigation.map((item) => (
-                                            <Disclosure.Button
-                                                key={item.name}
-                                                as="a"
-                                                href={item.href}
-                                                className={classNames(
-                                                    item.current
-                                                        ? 'bg-gray-900 text-white'
-                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'block rounded-md px-3 py-2 text-base font-medium'
-                                                )}
-                                                aria-current={
-                                                    item.current
-                                                        ? 'page'
-                                                        : undefined
-                                                }>
-                                                {item.name}
-                                            </Disclosure.Button>
-                                        ))}
+                                        {navigation.map((item) =>
+                                            item[userInfo.role] ? (
+                                                <Link
+                                                    key={item.name}
+                                                    to={item.link}>
+                                                    <Disclosure.Button
+                                                        className={classNames(
+                                                            item.current
+                                                                ? 'bg-gray-900 text-white'
+                                                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                            'block rounded-md px-3 py-2 text-base font-medium'
+                                                        )}
+                                                        aria-current={
+                                                            item.current
+                                                                ? 'page'
+                                                                : undefined
+                                                        }>
+                                                        {item.name}
+                                                    </Disclosure.Button>
+                                                </Link>
+                                            ) : null
+                                        )}
                                     </div>
                                     <div className="border-t border-gray-700 pb-3 pt-4">
                                         <div className="flex items-center px-5">
                                             <div className="flex-shrink-0">
                                                 <img
                                                     className="h-10 w-10 rounded-full"
-                                                    src={userInfo.imageUrl}
+                                                    src={`https://as2.ftcdn.net/v2/jpg/06/44/26/23/1000_F_644262384_Ip7Hf511qMoq3MluUdJ5MdMGQchjlVQI.jpg`}
                                                     alt=""
                                                 />
                                             </div>
@@ -234,6 +235,22 @@ export default function NavBar({ children }) {
                                         </div>
                                         <div className="mt-3 space-y-1 px-2">
                                             {userNavigation.map((item) => (
+                                                <Link
+                                                    key={item.name}
+                                                    to={item.link}>
+                                                    <Disclosure.Button
+                                                        as="a"
+                                                        className={classNames(
+                                                            item.current
+                                                                ? 'bg-gray-900 text-white'
+                                                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                            'block rounded-md px-3 py-2 text-base font-medium'
+                                                        )}>
+                                                        <div> {item.name}</div>
+                                                    </Disclosure.Button>
+                                                </Link>
+                                            ))}
+                                            {/* {userNavigation.map((item) => (
                                                 <Disclosure.Button
                                                     key={item.name}
                                                     as="a"
@@ -241,7 +258,7 @@ export default function NavBar({ children }) {
                                                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
                                                     {item.name}
                                                 </Disclosure.Button>
-                                            ))}
+                                            ))} */}
                                         </div>
                                     </div>
                                 </Disclosure.Panel>

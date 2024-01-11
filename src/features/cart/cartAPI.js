@@ -8,7 +8,7 @@ export function addToCart(item) {
             },
         });
         const data = await response.json();
-
+        resolve({ data });
     });
 }
 

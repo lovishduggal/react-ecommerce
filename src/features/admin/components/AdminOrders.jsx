@@ -23,9 +23,6 @@ function AdminOrders() {
     const totalOrders = useSelector(selectTotalOrders);
     const [editableOrderId, setEditableOrderId] = useState(-1);
 
-    const handleShow = (order) => {
-        console.log(order);
-    };
     const handleEdit = (order) => {
         setEditableOrderId(order.id);
     };
@@ -171,7 +168,9 @@ function AdminOrders() {
                                         <tbody className="text-gray-600 text-sm font-light">
                                             {orders &&
                                                 orders?.map((order) => (
-                                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={order.id}>
+                                                    <tr
+                                                        className="border-b border-gray-200 hover:bg-gray-100"
+                                                        key={order.id}>
                                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <div className="mr-2"></div>
@@ -387,17 +386,6 @@ function AdminOrders() {
                                                         </td>
                                                         <td className="py-3 px-6 text-center">
                                                             <div className="flex item-center justify-center">
-                                                                <div
-                                                                    className="w-6 mr-4 transform hover:text-purple-500 hover:scale-110 cursor-pointer"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        handleShow(
-                                                                            order
-                                                                        )
-                                                                    }>
-                                                                    <EyeIcon></EyeIcon>
-                                                                </div>
                                                                 <div
                                                                     className="w-6 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer"
                                                                     onClick={(

@@ -38,7 +38,7 @@ export default function Login() {
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form
                             noValidate
-                            className="space-y-6"
+                            className="space-y-6 w-full"
                             onSubmit={handleSubmit((data) => {
                                 dispatch(
                                     fetchCheckUserAsync({
