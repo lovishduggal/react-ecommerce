@@ -80,6 +80,7 @@ export default function ProductForm() {
     }, [selectedProduct, setValue, params.id]);
     return (
         <form
+            className="w-full"
             noValidate
             onSubmit={handleSubmit((data) => {
                 const product = { ...data };

@@ -8,6 +8,7 @@ import {
     selectAllProducts,
     selectBrands,
     selectCategories,
+    selectStatus,
     selectTotalItems,
 } from '../../product/productSlice';
 import {
@@ -26,6 +27,7 @@ import {
 } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { ITEMS_PER_PAGE } from '../../../app/constants';
+import { Grid } from 'react-loader-spinner';
 
 const sortOptions = [
     { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -49,6 +51,7 @@ function classNames(...classes) {
 
 export default function AdminProductList() {
     const products = useSelector(selectAllProducts);
+    const status = useSelector(selectStatus);
     const totalItems = useSelector(selectTotalItems);
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
@@ -238,12 +241,35 @@ export default function AdminProductList() {
                                         <div>
                                             <Link
                                                 to="/admin/product-form"
-                                                className="rounded-md my-5 mx-6 bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                                                className="rounded-md m-16 bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                                                 Add New Product
                                             </Link>
                                         </div>
-                                        <ProductGrid
-                                            products={products}></ProductGrid>
+                                        {/* Product grid */}
+                                        {status === 'loading' ? (
+                                            <ProductGrid>
+                                                <div className="flex items-center justify-center h-[80vh] lg:col-span-3">
+                                                    {' '}
+                                                    <Grid
+                                                        height="80"
+                                                        width="80"
+                                                        color="#1F2937"
+                                                        ariaLabel="grid-loading"
+                                                        radius="12.5"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass=""
+                                                        visible={true}
+                                                    />
+                                                </div>
+                                            </ProductGrid>
+                                        ) : products && products.length > 0 ? (
+                                            <ProductGrid
+                                                products={
+                                                    products
+                                                }></ProductGrid>
+                                        ) : (
+                                            <h4 className='flex items-center justify-center h-[80vh]'>No Result found</h4>
+                                        )}
                                     </div>
                                 </div>
                             </section>
@@ -556,84 +582,84 @@ function Pagination({ page, setPage, handlePage, totalItems = 100 }) {
     );
 }
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, children = null }) {
     return (
-        <div className="bg-white">
-            {/* This is our product list */}
-            <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 ">
-                    {products?.map((product) => (
-                        <div key={product.id}>
-                            <Link to={`/product-details/${product.id}`}>
-                                <div
-                                    key={product.id}
-                                    className="group relative border  p-2 rounded-xl shadow">
-                                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 border-gray-100 order-2">
-                                        <img
-                                            src={product.thumbnail}
-                                            alt={product.title}
-                                            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                                        />
-                                    </div>
-                                    <div className="mt-4 flex justify-between ">
-                                        <div>
-                                            <h3 className="text-sm text-gray-700">
-                                                <div href={product.thumbnail}>
-                                                    <span
-                                                        aria-hidden="true"
-                                                        className="absolute inset-0"
+        <>
+            {children ? (
+                children
+            ) : (
+                <div className="lg:col-span-3">
+                    {/* This is our product list */}
+                    <div className="bg-white">
+                        <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+                            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                                {products?.map((product) => (
+                                    <div key={product.id}>
+                                        <Link
+                                            to={`/product-details/${product.id}`}>
+                                            <div className="group relative ">
+                                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                                    <img
+                                                        src={product.thumbnail}
+                                                        alt={product.title}
+                                                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                                                     />
-                                                    {product.title}
                                                 </div>
-                                            </h3>
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                <StarIcon className="w-6 h-6 inline-block" />
-                                                <span className="align-bottom">
-                                                    {' '}
-                                                    {product.rating}
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">
-                                                $
-                                                {Math.round(
-                                                    product.price *
-                                                        (1 -
-                                                            product.discountPercentage /
-                                                                100)
-                                                )}
-                                            </p>
-                                            <p className="text-sm font-medium text-gray-400 line-through">
-                                                ${product.price}
-                                            </p>
-                                        </div>
+                                                <div className="mt-4 flex justify-between ">
+                                                    <div>
+                                                        <h3 className="text-sm text-gray-700">
+                                                            <div
+                                                                href={
+                                                                    product.thumbnail
+                                                                }>
+                                                                <span
+                                                                    aria-hidden="true"
+                                                                    className="absolute inset-0"
+                                                                />
+                                                                {product.title}
+                                                            </div>
+                                                        </h3>
+                                                        <p className="mt-1 text-sm text-gray-500">
+                                                            <StarIcon className="w-6 h-6 inline-block" />
+                                                            <span className="align-bottom">
+                                                                {' '}
+                                                                {product.rating}
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-sm font-medium text-gray-900">
+                                                            $
+                                                            {
+                                                                product.discountPrice
+                                                            }
+                                                        </p>
+                                                        <p className="text-sm font-medium text-gray-400 line-through">
+                                                            ${product.price}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    {product.deleted && (
+                                                        <p className="text-red-400 mt-2">
+                                                            Product Deleted
+                                                        </p>
+                                                    )}
+                                                    {product.stock < 0 && (
+                                                        <p className="text-red-400 mt-2">
+                                                            Out of stock
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Link>
                                     </div>
-                                    <div>
-                                        {product.deleted && (
-                                            <p className="text-red-400 mt-2">
-                                                Product Deleted
-                                            </p>
-                                        )}
-                                        {product.stock < 0 && (
-                                            <p className="text-red-400 mt-2">
-                                                Out of stock
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                            </Link>
-                            <div>
-                                <Link
-                                    to={`/admin/product-form/edit/${product.id}`}
-                                    className="rounded-md my-5 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-block">
-                                    Edit Product
-                                </Link>
+                                ))}
                             </div>
                         </div>
-                    ))}
+                    </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 }

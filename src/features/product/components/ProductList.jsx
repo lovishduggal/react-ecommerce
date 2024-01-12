@@ -224,8 +224,12 @@ export default function ProductList() {
                                     />
                                 </div>
                             </ProductGrid>
-                        ) : (
+                        ) : products && products.length > 0 ? (
                             <ProductGrid products={products}></ProductGrid>
+                        ) : (
+                            <h4 className="flex items-center justify-center h-[80vh]">
+                                No Result found
+                            </h4>
                         )}
                     </div>
                 </section>

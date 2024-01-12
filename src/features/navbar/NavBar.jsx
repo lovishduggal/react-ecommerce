@@ -210,7 +210,7 @@ export default function NavBar({ children }) {
                                             </div>
                                             <div className="ml-3">
                                                 <div className="text-base font-medium leading-none text-white">
-                                                    {userInfo.name}
+                                                    {userInfo.email.split('@')[0]}
                                                 </div>
                                                 <div className="text-sm font-medium leading-none text-gray-400">
                                                     {userInfo.email}

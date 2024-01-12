@@ -46,7 +46,7 @@ export default function UserProfile() {
                     <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6 text-center sm:text-start">
                             <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
-                                Name: {user?.name ? user?.name : 'New User'}
+                                Name: {user.email.split('@')[0]}
                             </h1>
                             <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
                                 Email Address: {user?.email}
@@ -65,7 +65,7 @@ export default function UserProfile() {
                                     setShowAddAddressForm(!showAddAddressForm);
                                     setSelectedEditIndex(-1);
                                 }}
-                                className=" absolute rounded-md  bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 top-2 right-6">
+                                className=" absolute rounded-md  bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 top-1 right-6">
                                 Add New Address
                             </button>
                             {showAddAddressForm ? (
@@ -248,7 +248,7 @@ export default function UserProfile() {
                                 Your Address:
                             </p>
                             <div className="space-y-1">
-                                {user && 
+                                {user &&
                                     user?.addresses?.map((address, index) => (
                                         <div key={address.email}>
                                             {selectedEditIndex === index ? (
