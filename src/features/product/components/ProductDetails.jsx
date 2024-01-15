@@ -344,7 +344,7 @@ export default function ProductDetails() {
                                 </div>
 
                                 {product.highlights &&
-                                    product.highlights.length > 0 && (
+                                    product.highlights[0] !== null && (
                                         <div className="mt-10">
                                             <h3 className="text-sm font-medium text-gray-900">
                                                 Highlights
