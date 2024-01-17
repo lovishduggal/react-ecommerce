@@ -16,7 +16,7 @@ export default function CheckoutForm() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (!stripe) {
+        if (!stripe && !currentOrder) {
             return;
         }
 
@@ -46,12 +46,12 @@ export default function CheckoutForm() {
                     break;
             }
         });
-    }, [stripe]);
+    }, [stripe, currentOrder]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!stripe || !elements) {
+        if (!stripe || !elements || !currentOrder) {
             // Stripe.js hasn't yet loaded.
             // Make sure to disable form submission until Stripe.js has loaded.
             return;
@@ -63,7 +63,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: `https://node-ecommerce-lovishduggal.vercel.app/order-success/${currentOrder.id}`,
+                return_url: `https://node-ecommerce-lovishduggal.vercel.app/order-success/${currentOrder?.id}`,
             },
         });
 

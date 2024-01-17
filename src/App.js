@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <SignupPage></SignupPage>,
     },
     {
-        path: '/cart',
+        path: '/my-cart',
         element: (
             <Protected>
                 {' '}
