@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLoggedInUserOrdersAsync, selectUserOrders } from '../userSlice';
+import { Link } from 'react-router-dom';
+import { Grid } from 'react-loader-spinner';
 
 export default function UserOrders() {
     const dispatch = useDispatch();
@@ -12,7 +14,7 @@ export default function UserOrders() {
 
     return (
         <div>
-            {orders &&
+            {orders && orders.length > 0 ? (
                 orders.map((order) => (
                     <div key={order.id}>
                         <div>
@@ -50,18 +52,11 @@ export default function UserOrders() {
                                                         <div>
                                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                                                 <h3>
-                                                                    <a
-                                                                        href={
-                                                                            item
-                                                                                .product
-                                                                                .id
-                                                                        }>
-                                                                        {
-                                                                            item
-                                                                                .product
-                                                                                .title
-                                                                        }
-                                                                    </a>
+                                                                    {
+                                                                        item
+                                                                            .product
+                                                                            .title
+                                                                    }
                                                                 </h3>
                                                                 <p className="ml-4">
                                                                     $
@@ -149,7 +144,21 @@ export default function UserOrders() {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))
+            ) : (
+                <div className="w-full h-[80vh] flex items-center justify-center">
+                    <Grid
+                        height="80"
+                        width="80"
+                        color="#1F2937"
+                        ariaLabel="grid-loading"
+                        radius="12.5"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            )}
         </div>
     );
 }

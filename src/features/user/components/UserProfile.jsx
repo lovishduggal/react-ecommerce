@@ -247,10 +247,10 @@ export default function UserProfile() {
                             <p className="mt-4 text-sm text-gray-500 text-center sm:text-start ">
                                 Your Address:
                             </p>
-                            <div className="space-y-1">
+                            <div className="space-y-4">
                                 {user &&
                                     user?.addresses?.map((address, index) => (
-                                        <div key={address.email}>
+                                        <div key={address.phone}>
                                             {selectedEditIndex === index ? (
                                                 <form
                                                     noValidate
@@ -450,13 +450,13 @@ export default function UserProfile() {
                                                     </div>
                                                 </form>
                                             ) : null}
-                                            <div className="flex justify-between flex-col sm:flex-row gap-x-6 px-5 py-5 border-solid border-2 border-gray-200 space-y-4">
+                                            <div className="flex justify-between flex-col sm:flex-row gap-x-6 px-5 py-5 border-solid border-2 border-gray-200 space-y-4 flex-wrap truncate ">
                                                 <div className="flex gap-x-4">
                                                     <div className="min-w-0 flex-auto text-center sm:text-start">
                                                         <p className="text-sm font-semibold leading-6 text-gray-900">
                                                             {address?.name}
                                                         </p>
-                                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500 break-all">
                                                             {address?.street}
                                                         </p>
                                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">

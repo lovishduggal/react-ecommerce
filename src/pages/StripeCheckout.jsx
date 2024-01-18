@@ -6,6 +6,7 @@ import CheckoutForm from './CheckoutForm';
 import '../Stripe.css';
 import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from '../features/order/orderSlice';
+import { useNavigate } from 'react-router-dom';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -19,7 +20,7 @@ const stripePromise = loadStripe(
 export default function StripeCheckout() {
     const [clientSecret, setClientSecret] = useState('');
     const currentOrder = useSelector(selectCurrentOrder);
-    console.log(currentOrder);
+    const navigate = useNavigate();
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (currentOrder && currentOrder.id) {
@@ -32,8 +33,10 @@ export default function StripeCheckout() {
                 .then((data) => {
                     setClientSecret(data.clientSecret);
                 });
+        } else {
+            return navigate(-1);
         }
-    }, [currentOrder]);
+    }, [currentOrder, navigate]);
 
     const appearance = {
         theme: 'stripe',
@@ -47,7 +50,24 @@ export default function StripeCheckout() {
         <div className="Stripe">
             {clientSecret && (
                 <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm />
+                    <div className="text-center my-4">
+                        <h1 className="text-2xl">
+                            When testing interactively, use a card number, such
+                            as <strong>4000003560000008</strong>.<br /> Enter
+                            the card number in the Dashboard or in any payment
+                            form.
+                        </h1>
+                        <ul>
+                            <li>Use a valid future date, such as 12/34.</li>
+                            <li>Use any three-digit CVC, such as 111.</li>
+                            <li>
+                                Use any value you like for other form fields.
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="w-full h-[60vh] flex justify-center items-center">
+                        <CheckoutForm className="w-[300px]"/>
+                    </div>
                 </Elements>
             )}
         </div>

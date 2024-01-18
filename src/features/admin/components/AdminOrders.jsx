@@ -14,6 +14,7 @@ import {
 } from '../../order/orderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../common/Pagination';
+import { Grid } from 'react-loader-spinner';
 
 function AdminOrders() {
     const [page, setPage] = useState(1);
@@ -52,7 +53,7 @@ function AdminOrders() {
     }, [dispatch, page, sort]);
     return (
         <>
-            {orders && (
+            {orders && orders.length > 0 ? (
                 <>
                     <div className="overflow-x-hidden">
                         <div className="flex items-center justify-center bg-gray-100 font-sans ">
@@ -413,6 +414,19 @@ function AdminOrders() {
                         handlePage={handlePage}
                         totalItems={totalOrders}></Pagination>
                 </>
+            ) : (
+                <div className="w-full h-[80vh] flex items-center justify-center">
+                    <Grid
+                        height="80"
+                        width="80"
+                        color="#1F2937"
+                        ariaLabel="grid-loading"
+                        radius="12.5"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
             )}
         </>
     );
